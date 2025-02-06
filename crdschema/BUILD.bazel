@@ -6,7 +6,7 @@ toolchain_type(
 )
 
 crdschema_toolchain(
-    name = "default_toolchain",
+    name = "go_toolchain",
     cli = "//crdschema/cmd/schema",
     visibility = ["//visibility:public"],
 )

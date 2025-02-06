@@ -1,4 +1,4 @@
-load("@@//tools/bazel/rules_opa:toolchain.bzl", "opa_toolchain")
+load("@@//opa:toolchain.bzl", "opa_toolchain")
 
 exports_files([
     "opa",

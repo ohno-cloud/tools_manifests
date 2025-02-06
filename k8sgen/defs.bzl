@@ -3,6 +3,8 @@ load("@rules_jsonnet//jsonnet:jsonnet.bzl", "JsonnetLibraryInfo")
 _TOOLCHAIN = "//k8sgen:toolchain_type"
 
 def _k8s_gen_crd(ctx):
+    toolchain = ctx.toolchains[_TOOLCHAIN].crdschema
+
     config = "_k8sgen_crds_config_" + ctx.label.name + ".yaml"
     path = ctx.label.name
 
@@ -19,8 +21,8 @@ def _k8s_gen_crd(ctx):
 
     ctx.actions.run(
         mnemonic = "K8sGen",
-        executable = ctx.file.k8s_gen,
-        inputs = ctx.files.crds + [config_file],
+        executable = toolchain.cli[DefaultInfo].files_to_run.executable,
+        inputs = ctx.files.crds + [config_file, toolchain.cli[DefaultInfo].files_to_run.executable],
         outputs = [output],
         arguments = [
             "--config",
@@ -28,6 +30,7 @@ def _k8s_gen_crd(ctx):
             "--output",
             output.path,
         ],
+        toolchain = None,
     )
 
     runfiles = ctx.runfiles(files = ctx.files.crds).merge_all([
@@ -54,17 +57,13 @@ k8s_gen_crd = rule(
             mandatory = True,
             doc = "Regular expression to match CRDs with",
         ),
-        "k8s_gen": attr.label(
-            default = "//go/tools:k8s-gen",
-            allow_single_file = True,
-            executable = True,
-            cfg = "exec",
-        ),
-        toolchains = [_TOOLCHAIN],
     },
+    toolchains = [_TOOLCHAIN],
 )
 
 def _k8s_gen_openapi(ctx):
+    toolchain = ctx.toolchains[_TOOLCHAIN].crdschema
+
     config = "_k8sgen_openapi_config_" + ctx.label.name + ".yaml"
     path = ctx.label.name
 
@@ -81,8 +80,8 @@ def _k8s_gen_openapi(ctx):
 
     ctx.actions.run(
         mnemonic = "K8sGen",
-        executable = ctx.file.k8s_gen,
-        inputs = ctx.files.openapi + [config_file],
+        executable = toolchain.cli[DefaultInfo].files_to_run.executable,
+        inputs = ctx.files.openapi + [config_file, toolchain.cli[DefaultInfo].files_to_run.executable],
         outputs = [output],
         arguments = [
             "--config",
@@ -90,6 +89,7 @@ def _k8s_gen_openapi(ctx):
             "--output",
             output.path,
         ],
+        toolchain = None,
     )
 
     runfiles = ctx.runfiles(files = ctx.files.openapi).merge_all([
@@ -115,12 +115,6 @@ k8s_gen_openapi = rule(
         "prefix": attr.string(
             mandatory = True,
             doc = "Regular expression to match CRDs with",
-        ),
-        "k8s_gen": attr.label(
-            default = "//go/tools:k8s-gen",
-            allow_single_file = True,
-            executable = True,
-            cfg = "exec",
         ),
     },
     toolchains = [_TOOLCHAIN],

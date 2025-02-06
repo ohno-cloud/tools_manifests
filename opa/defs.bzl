@@ -1,6 +1,6 @@
 load(":providers.bzl", "OpaRegoInfo")
 
-_TOOLCHAIN = "//tools/bazel/rules_opa:toolchain_type"
+_TOOLCHAIN = "//opa:toolchain_type"
 
 def _opa_eval_test_impl(ctx):
     toolchain = ctx.toolchains[_TOOLCHAIN].opa

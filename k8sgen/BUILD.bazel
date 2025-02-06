@@ -13,7 +13,7 @@ alias(
 )
 
 k8sgen_toolchain(
-    name = "default-toolchain",
+    name = "go_toolchain",
     cli = ":k8s-gen",
     visibility = ["//visibility:public"],
 )
