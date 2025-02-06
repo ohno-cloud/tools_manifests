@@ -1,0 +1,53 @@
+load("//tools/bazel/rules_opa:private/toolchains_repo.bzl", "PLATFORMS", "toolchains_repo")
+load("//tools/bazel/rules_opa:private/versions.bzl", "OPA_VERSIONS")
+
+def _opa_sdk_impl(ctx):
+    ctx.report_progress("Downloading and extracting Open Policy Agent executable")
+
+    ctx.download(
+        url = ctx.attr.urls,
+        output = "opa",
+        executable = True,
+        sha256 = ctx.attr.sha256,
+    )
+
+    ctx.template(
+        "BUILD.bazel",
+        ctx.attr._build_tpl,
+        substitutions = {},
+    )
+
+opa_sdk = repository_rule(
+    implementation = _opa_sdk_impl,
+    attrs = {
+        "urls": attr.string_list(mandatory = True),
+        "sha256": attr.string(mandatory = True),
+        "_build_tpl": attr.label(
+            default = "//tools/bazel/rules_opa:BUILD.bazel.tpl",
+        ),
+    },
+)
+
+def opa_register_toolchains(name, version = "0.52.0", register = True, **kwargs):
+    """Convenience macro for users which does typical setup.
+    Users can avoid this macro and do these steps themselves, if they want more control.
+    Args:
+        name: base name for all created repos, like "mylang1_14"
+        register: whether to call through to native.register_toolchains.
+            Should be True for WORKSPACE users, but false when used under bzlmod extension
+        **kwargs: passed to each opa_sdk call
+    """
+    version_info = OPA_VERSIONS.get(version)
+
+    for platform in version_info.keys():
+        opa_sdk(
+            name = name + "_" + platform,
+            **version_info.get(platform)
+        )
+        if register:
+            native.register_toolchains("@%s_toolchains//:%s_toolchain" % (name, platform))
+
+    toolchains_repo(
+        name = name + "_toolchains",
+        user_repository_name = name,
+    )

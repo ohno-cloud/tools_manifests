@@ -1,0 +1,12 @@
+load(":toolchain.bzl", "crdschema_toolchain")
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+crdschema_toolchain(
+    name = "default_toolchain",
+    cli = "//crdschema/cmd/schema",
+    visibility = ["//visibility:public"],
+)

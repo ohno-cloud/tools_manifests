@@ -1,0 +1,9 @@
+exports_files(glob(include = [
+    "*.bzl",
+    "*.tpl",
+]))
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)

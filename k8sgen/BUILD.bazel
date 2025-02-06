@@ -1,0 +1,19 @@
+load(":toolchain.bzl", "k8sgen_toolchain")
+
+# gazelle:exclude tools.go
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "k8s-gen",
+    actual = "@com_github_jsonnet_libs_k8s//:k8s",
+    visibility = ["//visibility:public"],
+)
+
+k8sgen_toolchain(
+    name = "default-toolchain",
+    cli = ":k8s-gen",
+    visibility = ["//visibility:public"],
+)
