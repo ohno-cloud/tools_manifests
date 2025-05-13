@@ -69,7 +69,7 @@ toolchain(
     name = "{platform}_toolchain",
     exec_compatible_with = {compatible_with},
     toolchain = "@{user_repository_name}_{platform}//:opa_toolchain",
-    toolchain_type = "@//opa:toolchain_type",
+    toolchain_type = "@tools_manifests//opa:toolchain_type",
 )
 """.format(
             platform = platform,

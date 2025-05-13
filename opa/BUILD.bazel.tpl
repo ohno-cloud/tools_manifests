@@ -1,4 +1,4 @@
-load("@@//opa:toolchain.bzl", "opa_toolchain")
+load("@tools_manifests//opa:toolchain_type", "opa_toolchain")
 
 exports_files([
     "opa",
