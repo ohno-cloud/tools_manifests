@@ -1,6 +1,7 @@
 module(
     name = "tools_manifests",
-    repo_name = "rnett_cloud_tools_manifests",
+    repo_name = "ohno_cloud_tools_manifests",
+    compatibility_level = 1,
 )
 
 bazel_dep(name = "rules_go", version = "0.51.0")
