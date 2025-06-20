@@ -1,44 +1,27 @@
 module(
     name = "tools_manifests",
-    repo_name = "ohno_cloud_tools_manifests",
     compatibility_level = 1,
+    repo_name = "ohno_cloud_tools_manifests",
 )
 
-bazel_dep(name = "rules_go", version = "0.51.0")
+bazel_dep(name = "rules_go", version = "0.55.1")
 bazel_dep(name = "rules_jsonnet", version = "0.6.0")
 bazel_dep(name = "platforms", version = "0.0.10")
-bazel_dep(name = "gazelle", version = "0.40.0")
+bazel_dep(name = "gazelle", version = "0.44.0")
 
 #==============================================================================
 # Go Lang dependencies
 #==============================================================================
 go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
-
-# go_deps.gazelle_override(
-#     directives = [
-#         "gazelle:go_naming_convention import_alias",
-#     ],
-#     path = "github.com/google/go-jsonnet",
-# )
-# go_deps.archive_override(
-#     patches = [
-#         "//k8sgen/patches/com_github_jsonnet_libs_k8s:0001-patch-remove-chdir.patch",
-#         "//k8sgen/patches/com_github_jsonnet_libs_k8s:0002-update-doc-util-file-path.patch",
-#         "//k8sgen/patches/com_github_jsonnet_libs_k8s:0003-remove-recursive-mixin.patch",
-#         "//k8sgen/patches/com_github_jsonnet_libs_k8s:0004-disable-printing.patch",
-#     ],
-#     path = "github.com/jsonnet-libs/k8s",
-#     sha256 = "59436e78edc6b3b59844824d219c2f04f2fa7bc8b98daaa0b686379b2acf22d4",
-#     strip_prefix = "k8s-ff29b4497f8d7a54963aedabe318323fc9e9167b",
-#     urls = ["https://github.com/jsonnet-libs/k8s/archive/ff29b4497f8d7a54963aedabe318323fc9e9167b.tar.gz"],
-# )
 go_deps.from_file(go_mod = "//:go.mod")
 
 # All *direct* Go dependencies of the module have to be listed explicitly.
 use_repo(
     go_deps,
     "com_github_alecthomas_kong",
-    "com_github_jsonnet_libs_k8s",
+    "com_github_jsonnet_libs_docsonnet",
+    "com_github_ohno_cloud_k8s_gen_libsonnet",
     "in_gopkg_yaml_v3",
+    "io_k8s_sigs_kubebuilder_v4",
     "org_golang_x_sync",
 )
