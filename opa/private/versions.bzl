@@ -5,7 +5,7 @@ OPA_VERSIONS = {
             "urls": ["https://github.com/open-policy-agent/opa/releases/download/v1.1.0/opa_darwin_amd64"],
         },
         "aarch64-apple-darwin": {
-            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "sha256": "f9112728505d5c00a9f9256e54457176f0d467ddc82db6295fe00552080b403f",
             "urls": ["https://github.com/open-policy-agent/opa/releases/download/v1.1.0/opa_darwin_arm64_static"],
         },
         "x86_64-unknown-linux-gnu": {

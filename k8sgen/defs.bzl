@@ -19,23 +19,24 @@ def _k8s_gen_crd(ctx):
         }],
     }))
 
+    args = ctx.actions.args()
+    # Compability flags introduced in github.com/ohno-cloud/k8s-gen-libsonnet/
+    args.add("--chdir=false")
+    args.add("--mixin-self=false")
+    args.add("--quiet")
+    args.add("--chdir=false")
+    args.add("--config", config_file)
+    args.add( "--output", output.path)
+
     ctx.actions.run(
         mnemonic = "K8sGen",
         executable = toolchain.cli[DefaultInfo].files_to_run.executable,
         inputs = ctx.files.crds + [config_file, toolchain.cli[DefaultInfo].files_to_run.executable],
         outputs = [output],
-        arguments = [
-            "--config",
-            config_file.path,
-            "--output",
-            output.path,
-        ],
+        arguments = [args],
         toolchain = None,
     )
 
-    runfiles = ctx.runfiles(files = ctx.files.crds).merge_all([
-        ctx.runfiles(files = [config_file]),
-    ])
     outputs = depset([output])
     return [
         DefaultInfo(files = depset([output])),
@@ -78,23 +79,24 @@ def _k8s_gen_openapi(ctx):
         }],
     }))
 
+    args = ctx.actions.args()
+    # Compability flags introduced in github.com/ohno-cloud/k8s-gen-libsonnet/
+    args.add("--chdir=false")
+    args.add("--mixin-self=false")
+    args.add("--quiet")
+    args.add("--chdir=false")
+    args.add("--config", config_file)
+    args.add( "--output", output.path)
+
     ctx.actions.run(
         mnemonic = "K8sGen",
         executable = toolchain.cli[DefaultInfo].files_to_run.executable,
         inputs = ctx.files.openapi + [config_file, toolchain.cli[DefaultInfo].files_to_run.executable],
         outputs = [output],
-        arguments = [
-            "--config",
-            config_file.path,
-            "--output",
-            output.path,
-        ],
+        arguments = [args],
         toolchain = None,
     )
 
-    runfiles = ctx.runfiles(files = ctx.files.openapi).merge_all([
-        ctx.runfiles(files = [config_file]),
-    ])
     outputs = depset([output])
     return [
         DefaultInfo(files = depset([output])),

@@ -1,4 +1,4 @@
-load(":toolchain.bzl", "k8sgen_toolchain")
+load(":toolchain.bzl", "docsonnet_toolchain")
 
 # gazelle:exclude tools.go
 toolchain_type(
@@ -7,13 +7,13 @@ toolchain_type(
 )
 
 alias(
-    name = "k8s-gen",
-    actual = "@com_github_ohno_cloud_k8s_gen_libsonnet//:k8s-gen-libsonnet",
+    name = "docsonnet",
+    actual = "@com_github_jsonnet_libs_docsonnet//:docsonnet",
     visibility = ["//visibility:public"],
 )
 
-k8sgen_toolchain(
+docsonnet_toolchain(
     name = "go_toolchain",
-    cli = ":k8s-gen",
+    cli = ":docsonnet",
     visibility = ["//visibility:public"],
 )

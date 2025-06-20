@@ -1,4 +1,4 @@
-load("//opa/private:resolved_toolchain.bzl", "resolved_toolchain")
+load("//conftest/private:resolved_toolchain.bzl", "resolved_toolchain")
 
 exports_files(glob(include = [
     "*.bzl",

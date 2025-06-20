@@ -4,5 +4,5 @@
 package tools
 
 import (
-	_ "github.com/ohno-cloud/k8s-gen-libsonnet"
+	_ "github.com/jsonnet-libs/docsonnet"
 )

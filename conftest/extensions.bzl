@@ -1,13 +1,13 @@
-load("//opa:repo.bzl", "opa_register_toolchains")
+load("//conftest:repo.bzl", "conftest_register_toolchains")
 
-_DEFAULT_NAME = "opa"
+_DEFAULT_NAME = "conftest"
 
-opa_toolchain = tag_class(attrs = {
+conftest_toolchain = tag_class(attrs = {
     "name": attr.string(doc = """\
 Base name for generated repositories, allowing more than one mylang toolchain to be registered.
 Overriding the default is only permitted in the root module.
 """, default = _DEFAULT_NAME),
-    "opa_version": attr.string(doc = "Explicit version of opa.", mandatory = True),
+    "conftest_version": attr.string(doc = "Explicit version of conftest.", mandatory = True),
 })
 
 def _toolchain_extension(module_ctx):
@@ -21,24 +21,24 @@ def _toolchain_extension(module_ctx):
                 """)
             if toolchain.name not in registrations.keys():
                 registrations[toolchain.name] = []
-            registrations[toolchain.name].append(toolchain.opa_version)
+            registrations[toolchain.name].append(toolchain.conftest_version)
     for name, versions in registrations.items():
         if len(versions) > 1:
             # TODO: should be semver-aware, using MVS
             selected = sorted(versions, reverse = True)[0]
 
             # buildifier: disable=print
-            print("NOTE: opa toolchain {} has multiple versions {}, selected {}".format(name, versions, selected))
+            print("NOTE: conftest toolchain {} has multiple versions {}, selected {}".format(name, versions, selected))
         else:
             selected = versions[0]
 
-        opa_register_toolchains(
+        conftest_register_toolchains(
             name = name,
             version = selected,
             register = False,
         )
 
-opa = module_extension(
+conftest = module_extension(
     implementation = _toolchain_extension,
-    tag_classes = {"toolchain": opa_toolchain},
+    tag_classes = {"toolchain": conftest_toolchain},
 )
