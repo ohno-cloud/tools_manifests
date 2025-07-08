@@ -26,7 +26,7 @@ def _k8s_gen_crd(ctx):
     args.add("--quiet")
     args.add("--chdir=false")
     args.add("--config", config_file)
-    args.add( "--output", output.path)
+    args.add("--output", output.path)
 
     ctx.actions.run(
         mnemonic = "K8sGen",
@@ -42,6 +42,7 @@ def _k8s_gen_crd(ctx):
         DefaultInfo(files = depset([output])),
         JsonnetLibraryInfo(
             imports = depset([output.dirname]),
+            short_imports = depset([output.dirname]),
             transitive_jsonnet_files = outputs,
             transitive_sources = outputs,
         ),
@@ -101,6 +102,7 @@ def _k8s_gen_openapi(ctx):
     return [
         DefaultInfo(files = depset([output])),
         JsonnetLibraryInfo(
+            short_imports = depset([output.dirname]),
             imports = depset([output.dirname]),
             transitive_jsonnet_files = outputs,
             transitive_sources = outputs,
