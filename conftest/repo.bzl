@@ -32,7 +32,7 @@ conftest_sdk = repository_rule(
     },
 )
 
-def conftest_register_toolchains(name, version = "1.1.0", register = True, **kwargs):
+def conftest_register_toolchains(name, version = "0.62.0", register = True, **kwargs):
     """Convenience macro for users which does typical setup.
     Users can avoid this macro and do these steps themselves, if they want more control.
     Args:

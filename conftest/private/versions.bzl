@@ -1,4 +1,22 @@
 CONFTEST_VERSIONS = {
+    "0.62.0": {
+        "x86_64-apple-darwin": {
+            "sha256": "2f72025d990a75a5a117644723560a8c2b995489b46886ebddc7412955f1d3af",
+            "urls": ["https://github.com/open-policy-agent/conftest/releases/download/v0.62.0/conftest_0.62.0_Darwin_x86_64.tar.gz"],
+        },
+        "aarch64-apple-darwin": {
+            "sha256": "559b11b5d7f3879b19e4b87801a72e014c28556c1c799864073524022e50ea2d",
+            "urls": ["https://github.com/open-policy-agent/conftest/releases/download/v0.62.0/conftest_0.62.0_Darwin_arm64.tar.gz"],
+        },
+        "x86_64-unknown-linux-gnu": {
+            "sha256": "284231908e4cf66d156e5577c3eee2f67d9f2edf2521fa2309e0df1969f871e5",
+            "urls": ["https://github.com/open-policy-agent/conftest/releases/download/v0.62.0/conftest_0.62.0_Linux_x86_64.tar.gz"],
+        },
+        "aarch64-unknown-linux-gnu": {
+            "sha256": "2129f630711b8b0fd8d0cee9092c8015c577c3035a2e393d3b340bb1e4e9b59f",
+            "urls": ["https://github.com/open-policy-agent/conftest/releases/download/v0.62.0/conftest_0.62.0_Linux_arm64.tar.gz"],
+        },
+    },
     "0.60.0": {
         "x86_64-apple-darwin": {
             "sha256": "2b6bd65b099ff859f18f9983127a86d42f30b8371527e6bc6ec750f9da28236e",
