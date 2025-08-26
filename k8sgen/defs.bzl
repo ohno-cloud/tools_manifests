@@ -74,7 +74,7 @@ def _k8s_gen_openapi(ctx):
 
     ctx.actions.write(config_file, json.encode({
         "specs": [{
-            "openapi": [x.path for x in ctx.files.openapi],
+            "openapi": ctx.files.openapi[0].path,
             "prefix": ctx.attr.prefix,
             "localName": ctx.label.name,
         }],
@@ -112,7 +112,7 @@ def _k8s_gen_openapi(ctx):
 k8s_gen_openapi = rule(
     implementation = _k8s_gen_openapi,
     attrs = {
-        "openapi": attr.label_list(
+        "openapi": attr.label(
             mandatory = True,
             allow_files = True,
         ),
