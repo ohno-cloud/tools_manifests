@@ -17,7 +17,7 @@ load("@ohno_cloud_tools_manifests//opa:toolchain.bzl", "opa_toolchain")
 opa_toolchain(
     name = "opa_toolchain",
     cli = select({
-        "@bazel_tools//src/conditions:host_windows": "opa.exe",
+        "@platforms//os:windows": "opa.exe",
         "//conditions:default": "opa",
     }),
 )

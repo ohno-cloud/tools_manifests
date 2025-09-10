@@ -15,7 +15,7 @@ load("@ohno_cloud_tools_manifests//conftest:toolchain.bzl", "conftest_toolchain"
 conftest_toolchain(
     name = "conftest_toolchain",
     cli = select({
-        "@bazel_tools//src/conditions:host_windows": ":conftest.exe",
+        "@platforms//os:windows": ":conftest.exe",
         "//conditions:default": ":conftest",
     }),
 )
