@@ -44,7 +44,6 @@ def _k8s_gen_crd(ctx):
             imports = depset([output.dirname]),
             short_imports = depset([output.dirname]),
             transitive_jsonnet_files = outputs,
-            transitive_sources = outputs,
         ),
     ]
 
@@ -105,7 +104,6 @@ def _k8s_gen_openapi(ctx):
             short_imports = depset([output.dirname]),
             imports = depset([output.dirname]),
             transitive_jsonnet_files = outputs,
-            transitive_sources = outputs,
         ),
     ]
 
