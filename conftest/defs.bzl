@@ -5,7 +5,10 @@ _TOOLCHAIN = "//conftest:toolchain_type"
 def _conftest_test_impl(ctx):
     toolchain = ctx.toolchains[_TOOLCHAIN].conftest
 
-    args = ["test", "--combine"]
+    args = ["test", "--output", "junit"]
+
+    if ctx.attr.combined:
+        args.append("--combine")
 
     runfiles = [
         ctx.runfiles(files = [toolchain.cli[DefaultInfo].files_to_run.executable]),
@@ -30,6 +33,7 @@ def _conftest_test_impl(ctx):
     runfiles = ctx.runfiles(collect_data = True).merge_all(runfiles)
     return [
         DefaultInfo(
+            executable = ctx.outputs.executable,
             runfiles = runfiles,
         ),
     ]
@@ -38,7 +42,13 @@ conftest_test = rule(
     implementation = _conftest_test_impl,
     test = True,
     attrs = {
+        "combined": attr.bool(
+            default = False,
+        ),
         "policy": attr.label_list(
+            mandatory = True,
+        ),
+        "policy_data": attr.label_list(
             mandatory = True,
         ),
         "input": attr.label(

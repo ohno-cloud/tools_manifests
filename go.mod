@@ -1,12 +1,12 @@
 module github.com/ohno-cloud/tools_manifests
 
-go 1.23.6
+go 1.25.0
 
 require (
-	github.com/alecthomas/kong v1.11.0
+	github.com/alecthomas/kong v1.14.0
 	github.com/jsonnet-libs/docsonnet v0.0.6
 	github.com/ohno-cloud/k8s-gen-libsonnet v0.0.0-20250620065327-86c7f19f6d85
-	golang.org/x/sync v0.11.0
+	golang.org/x/sync v0.20.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
